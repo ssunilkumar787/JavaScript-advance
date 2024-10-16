@@ -1,25 +1,16 @@
-const cart = ['shoes', 'pants', 'kurta'];
+const cart = ["shoes", "pants", "kurta"];
 
 createOrder(cart, function (orderId) {
-    proceedToPayment(orderId, function (paymentInfo) {
-        showOrderSummary(paymentInfo, function () {
-            updateWalletBalance()
-        })
-    })
-})
-
-
-
-
+  proceedToPayment(orderId, function (paymentInfo) {
+    showOrderSummary(paymentInfo, function (summaryInfo) {
+      updateWalletBalance(summaryInfo);
+    });
+  });
+});
 
 const promise = createOrder(cart);
 
 promise
-.then(function (orderId) {
- return  proceedToPayment(orderId)
-})
-.then(paymentInfo => showOrderSummary(paymentInfo))
-.then(summaryInfo => updateWalletBalance(summaryInfo))
-
-
-
+  .then((orderId) => proceedToPayment(orderId))
+  .then((paymentInfo) => showOrderSummary(paymentInfo))
+  .then((summaryInfo) => updateWalletBalance(summaryInfo));
